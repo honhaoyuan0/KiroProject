@@ -18,7 +18,7 @@ void main() {
 
     setUp(() async {
       databaseHelper = DatabaseHelper();
-
+      
       // Create test data
       final now = DateTime.now();
       testAppGroup = AppGroup(
@@ -79,10 +79,7 @@ void main() {
 
         final allGroups = await databaseHelper.getAllAppGroups();
         expect(allGroups.length, 2);
-        expect(
-          allGroups.map((g) => g.id),
-          containsAll(['test-group-1', 'test-group-2']),
-        );
+        expect(allGroups.map((g) => g.id), containsAll(['test-group-1', 'test-group-2']));
       });
 
       test('should get only active app groups', () async {
@@ -102,7 +99,7 @@ void main() {
 
       test('should update app group', () async {
         await databaseHelper.insertAppGroup(testAppGroup);
-
+        
         final updatedGroup = testAppGroup.copyWith(
           name: 'Updated Social Media',
           timeLimit: const Duration(minutes: 45),
@@ -129,9 +126,7 @@ void main() {
         await databaseHelper.insertAppGroup(testAppGroup);
         await databaseHelper.insertOrUpdateTimerSession(testTimerSession);
 
-        final retrieved = await databaseHelper.getTimerSession(
-          testTimerSession.groupId,
-        );
+        final retrieved = await databaseHelper.getTimerSession(testTimerSession.groupId);
 
         expect(retrieved, isNotNull);
         expect(retrieved!.groupId, testTimerSession.groupId);
@@ -149,9 +144,7 @@ void main() {
         );
 
         await databaseHelper.insertOrUpdateTimerSession(updatedSession);
-        final retrieved = await databaseHelper.getTimerSession(
-          testTimerSession.groupId,
-        );
+        final retrieved = await databaseHelper.getTimerSession(testTimerSession.groupId);
 
         expect(retrieved!.elapsedTime, const Duration(minutes: 25));
         expect(retrieved.isActive, false);
@@ -159,7 +152,7 @@ void main() {
 
       test('should get active timer sessions', () async {
         await databaseHelper.insertAppGroup(testAppGroup);
-
+        
         final group2 = testAppGroup.copyWith(id: 'test-group-2');
         await databaseHelper.insertAppGroup(group2);
 
@@ -185,9 +178,7 @@ void main() {
         await databaseHelper.insertOrUpdateTimerSession(testTimerSession);
         await databaseHelper.deleteTimerSession(testTimerSession.groupId);
 
-        final retrieved = await databaseHelper.getTimerSession(
-          testTimerSession.groupId,
-        );
+        final retrieved = await databaseHelper.getTimerSession(testTimerSession.groupId);
         expect(retrieved, isNull);
       });
     });
@@ -197,9 +188,7 @@ void main() {
         await databaseHelper.insertAppGroup(testAppGroup);
         await databaseHelper.insertOrUpdateUsageStats(testUsageStats);
 
-        final retrieved = await databaseHelper.getUsageStats(
-          testUsageStats.appPackage,
-        );
+        final retrieved = await databaseHelper.getUsageStats(testUsageStats.appPackage);
 
         expect(retrieved, isNotNull);
         expect(retrieved!.appPackage, testUsageStats.appPackage);
@@ -219,9 +208,7 @@ void main() {
         );
 
         await databaseHelper.insertOrUpdateUsageStats(updatedStats);
-        final retrieved = await databaseHelper.getUsageStats(
-          testUsageStats.appPackage,
-        );
+        final retrieved = await databaseHelper.getUsageStats(testUsageStats.appPackage);
 
         expect(retrieved!.dailyUsage, const Duration(hours: 3));
         expect(retrieved.weeklyUsage, const Duration(hours: 20));
@@ -229,7 +216,7 @@ void main() {
 
       test('should get all usage stats', () async {
         await databaseHelper.insertAppGroup(testAppGroup);
-
+        
         final stats2 = UsageStats(
           appPackage: 'com.twitter.android',
           groupId: 'test-group-1',
@@ -244,15 +231,13 @@ void main() {
 
         final allStats = await databaseHelper.getAllUsageStats();
         expect(allStats.length, 2);
-        expect(
-          allStats.map((s) => s.appPackage),
-          containsAll(['com.instagram.android', 'com.twitter.android']),
-        );
+        expect(allStats.map((s) => s.appPackage), 
+               containsAll(['com.instagram.android', 'com.twitter.android']));
       });
 
       test('should get usage stats by group', () async {
         await databaseHelper.insertAppGroup(testAppGroup);
-
+        
         final group2 = testAppGroup.copyWith(id: 'test-group-2');
         await databaseHelper.insertAppGroup(group2);
 
@@ -269,15 +254,11 @@ void main() {
         await databaseHelper.insertOrUpdateUsageStats(statsGroup1);
         await databaseHelper.insertOrUpdateUsageStats(statsGroup2);
 
-        final group1Stats = await databaseHelper.getUsageStatsByGroup(
-          'test-group-1',
-        );
+        final group1Stats = await databaseHelper.getUsageStatsByGroup('test-group-1');
         expect(group1Stats.length, 1);
         expect(group1Stats.first.appPackage, 'com.instagram.android');
 
-        final group2Stats = await databaseHelper.getUsageStatsByGroup(
-          'test-group-2',
-        );
+        final group2Stats = await databaseHelper.getUsageStatsByGroup('test-group-2');
         expect(group2Stats.length, 1);
         expect(group2Stats.first.appPackage, 'com.youtube.android');
       });
@@ -287,9 +268,7 @@ void main() {
         await databaseHelper.insertOrUpdateUsageStats(testUsageStats);
         await databaseHelper.deleteUsageStats(testUsageStats.appPackage);
 
-        final retrieved = await databaseHelper.getUsageStats(
-          testUsageStats.appPackage,
-        );
+        final retrieved = await databaseHelper.getUsageStats(testUsageStats.appPackage);
         expect(retrieved, isNull);
       });
     });
@@ -318,9 +297,7 @@ void main() {
         });
 
         final group = await databaseHelper.getAppGroupById(testAppGroup.id);
-        final session = await databaseHelper.getTimerSession(
-          testTimerSession.groupId,
-        );
+        final session = await databaseHelper.getTimerSession(testTimerSession.groupId);
 
         expect(group, isNotNull);
         expect(session, isNotNull);
@@ -328,36 +305,26 @@ void main() {
     });
 
     group('Foreign key constraints', () {
-      test(
-        'should cascade delete timer sessions when app group is deleted',
-        () async {
-          await databaseHelper.insertAppGroup(testAppGroup);
-          await databaseHelper.insertOrUpdateTimerSession(testTimerSession);
+      test('should cascade delete timer sessions when app group is deleted', () async {
+        await databaseHelper.insertAppGroup(testAppGroup);
+        await databaseHelper.insertOrUpdateTimerSession(testTimerSession);
 
-          await databaseHelper.deleteAppGroup(testAppGroup.id);
+        await databaseHelper.deleteAppGroup(testAppGroup.id);
 
-          final session = await databaseHelper.getTimerSession(
-            testTimerSession.groupId,
-          );
-          expect(session, isNull);
-        },
-      );
+        final session = await databaseHelper.getTimerSession(testTimerSession.groupId);
+        expect(session, isNull);
+      });
 
-      test(
-        'should set group_id to null in usage stats when app group is deleted',
-        () async {
-          await databaseHelper.insertAppGroup(testAppGroup);
-          await databaseHelper.insertOrUpdateUsageStats(testUsageStats);
+      test('should set group_id to null in usage stats when app group is deleted', () async {
+        await databaseHelper.insertAppGroup(testAppGroup);
+        await databaseHelper.insertOrUpdateUsageStats(testUsageStats);
 
-          await databaseHelper.deleteAppGroup(testAppGroup.id);
+        await databaseHelper.deleteAppGroup(testAppGroup.id);
 
-          final stats = await databaseHelper.getUsageStats(
-            testUsageStats.appPackage,
-          );
-          expect(stats, isNotNull);
-          expect(stats!.groupId, isNull);
-        },
-      );
+        final stats = await databaseHelper.getUsageStats(testUsageStats.appPackage);
+        expect(stats, isNotNull);
+        expect(stats!.groupId, isNull);
+      });
     });
   });
 }
