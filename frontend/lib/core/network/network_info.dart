@@ -12,3 +12,10 @@ class NetworkInfoImpl implements NetworkInfo {
     return true;
   }
 }
+
+/// Factory for creating NetworkInfo instances
+class NetworkInfoFactory {
+  static final NetworkInfo _instance = NetworkInfoImpl();
+  
+  static NetworkInfo get instance => _instance;
+}

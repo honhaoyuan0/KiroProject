@@ -74,7 +74,9 @@
 
 ## Team Member 2: Screen Analysis & Insights
 
-- [ ] 9. Create usage statistics service
+- [x] 9. Create usage statistics service
+
+
   - Implement UsageStatsService class to collect and process app usage data
   - Add methods to calculate daily, weekly, and monthly usage statistics
   - Create data aggregation logic for app groups and individual apps
@@ -82,7 +84,12 @@
   - Write unit tests for statistics calculation and data processing
   - _Requirements: 3.1, 3.2_
 
-- [ ] 10. Develop screen insights analytics UI
+- [x] 10. Develop screen insights analytics UI
+
+
+
+
+
   - Create ScreenInsightsPage with tab navigation for daily/weekly/monthly views
   - Implement usage statistics charts using Flutter charting library
   - Add usage breakdown by app groups and individual apps with visual indicators

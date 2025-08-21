@@ -21,7 +21,8 @@ class UsageStats extends Equatable {
     required this.lastUsed,
   });
 
-  factory UsageStats.fromJson(Map<String, dynamic> json) => _$UsageStatsFromJson(json);
+  factory UsageStats.fromJson(Map<String, dynamic> json) =>
+      _$UsageStatsFromJson(json);
   Map<String, dynamic> toJson() => _$UsageStatsToJson(this);
 
   // Database conversion methods
@@ -66,5 +67,12 @@ class UsageStats extends Equatable {
   }
 
   @override
-  List<Object?> get props => [appPackage, groupId, dailyUsage, weeklyUsage, monthlyUsage, lastUsed];
+  List<Object?> get props => [
+    appPackage,
+    groupId,
+    dailyUsage,
+    weeklyUsage,
+    monthlyUsage,
+    lastUsed,
+  ];
 }

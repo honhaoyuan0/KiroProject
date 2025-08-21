@@ -7,8 +7,8 @@ plugins {
 
 android {
     namespace = "com.screentimemanager.screen_time_manager"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35  // Use a more stable version
+    // ndkVersion = flutter.ndkVersion  // Use Flutter's default NDK version
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -24,8 +24,8 @@ android {
         applicationId = "com.screentimemanager.screen_time_manager"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 22  // Updated to support usage_stats plugin (was 21)
+        targetSdk = 35  // Updated to match compileSdk
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
