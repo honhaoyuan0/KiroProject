@@ -110,7 +110,14 @@
 
 ## Team Member 3: App Groups & Timer Management UI
 
-- [ ] 12. Build app groups management UI
+- [x] 12. Build app groups management UI
+
+
+
+
+
+
+
   - Create AppGroupsPage with list view of existing groups and floating action button
   - Implement app selection dialog with installed apps list and multi-select capability
   - Add group creation/editing forms with name input and timer duration picker
@@ -120,7 +127,13 @@
   - Write widget tests for app group management flows
   - _Requirements: 1.1, 1.2, 5.1, 5.2, 5.4, 7.1, 7.2, 7.5_
 
-- [ ] 13. Implement main app navigation and state management
+- [x] 13. Implement main app navigation and state management
+
+
+
+
+
+
   - Create main app widget with bottom navigation bar for two primary sections
   - Set up navigation routing between app groups and screen insights pages
   - Implement state management solution (Provider/Riverpod) for app-wide state
@@ -129,7 +142,12 @@
   - Write integration tests for navigation flows and state persistence
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 5.4_
 
-- [ ] 14. Create timer control interface and settings
+- [x] 14. Create timer control interface and settings
+
+
+
+
+
   - Implement timer control widgets for starting, pausing, and stopping group timers
   - Add timer status indicators and progress bars for active groups
   - Create quick timer adjustment controls (add 5min, 10min, etc.)
