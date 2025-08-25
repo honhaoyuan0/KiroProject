@@ -118,7 +118,7 @@ class _UsageBreakdownWidgetState extends State<UsageBreakdownWidget> {
             totalMinutes > 0 ? (e.value.inMinutes / totalMinutes) * 100 : 0.0;
         return _buildUsageItem(
           title: e.key,
-          subtitle: '${_formatDuration(e.value)}',
+          subtitle: _formatDuration(e.value),
           usage: e.value,
           percentage: percentage,
           icon: Icons.folder,
