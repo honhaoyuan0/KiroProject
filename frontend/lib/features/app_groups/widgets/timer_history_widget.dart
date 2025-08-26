@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_theme.dart';
 import '../../../core/models/app_group.dart';
-import '../../../core/models/timer_session.dart';
 
 class TimerHistoryWidget extends ConsumerStatefulWidget {
   final AppGroup appGroup;
@@ -89,15 +88,17 @@ class _TimerHistoryWidgetState extends ConsumerState<TimerHistoryWidget> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           _buildHeader(context),
           const SizedBox(height: 16),
-          if (_isLoading)
-            const Center(child: CircularProgressIndicator())
-          else if (_historyEntries.isEmpty)
-            _buildEmptyState(context)
-          else
-            _buildHistoryList(context),
+          Flexible(
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _historyEntries.isEmpty
+                    ? _buildEmptyState(context)
+                    : _buildHistoryList(context),
+          ),
         ],
       ),
     );
@@ -208,19 +209,22 @@ class _TimerHistoryWidgetState extends ConsumerState<TimerHistoryWidget> {
   }
 
   Widget _buildHistoryList(BuildContext context) {
-    return Column(
-      children: _historyEntries.asMap().entries.map((entry) {
-        final index = entry.key;
-        final historyEntry = entry.value;
-        final isLast = index == _historyEntries.length - 1;
-        
-        return Column(
-          children: [
-            _buildHistoryItem(context, historyEntry),
-            if (!isLast) const Divider(height: 16),
-          ],
-        );
-      }).toList(),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: _historyEntries.asMap().entries.map((entry) {
+          final index = entry.key;
+          final historyEntry = entry.value;
+          final isLast = index == _historyEntries.length - 1;
+          
+          return Column(
+            children: [
+              _buildHistoryItem(context, historyEntry),
+              if (!isLast) const Divider(height: 16),
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 
